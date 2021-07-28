@@ -454,11 +454,6 @@ void Graph::build_summary_edges() {
 }
 
 void Graph::to_indexing_graph() {
-    // remove all self-cycles
-    for (int i = 0; i < n_vertices; ++i) {
-        removeEdge(i, i);
-    }
-
     // add all summary edges to the graph
     add_summary_edges();
 
@@ -485,6 +480,11 @@ void Graph::to_indexing_graph() {
     for (auto &it : neg_label_map) {
         auto &neg_e = it.first;
         removeEdge(neg_e.first + n_vertices / 2, neg_e.second + n_vertices / 2);
+    }
+
+    // remove all self-cycles
+    for (int i = 0; i < n_vertices; ++i) {
+        removeEdge(i, i);
     }
 }
 
